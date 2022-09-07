@@ -1,0 +1,54 @@
+
+#+BEGIN_SRC bash
+# Test all
+# go test -v 
+[20220907T165332]$ go test -v 
+=== RUN   TestDoubleHandler
+--- PASS: TestDoubleHandler (0.00s)
+=== RUN   TestDoubleHandlerWithTableOfTestCases
+=== RUN   TestDoubleHandlerWithTableOfTestCases/double_of_two
+=== RUN   TestDoubleHandlerWithTableOfTestCases/missing_value
+=== RUN   TestDoubleHandlerWithTableOfTestCases/not_a_number
+--- PASS: TestDoubleHandlerWithTableOfTestCases (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/double_of_two (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/missing_value (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/not_a_number (0.00s)
+=== RUN   TestRouting
+    main_test.go:116: expected status OK; got 404 Not Found
+    main_test.go:126: expected an interger; got 404 page not found
+--- FAIL: TestRouting (0.00s)
+FAIL
+exit status 1
+FAIL	github.com/zxhoper/go-testing-http-01-server-basic-test	0.005s
+Q_Qhbc@localhost:/home/hbc/BH/new-note/go-testing-justforfunc-#16-unit-testing-HTTP-servers-RZ20561-2022-09-07_083801/go-testing-http-01-server-basic-test/
+
+# Test only TestDoubleHandler
+# go test -v -run TestDoubleHandler
+[20220907T165339]$ go test -v -run TestDoubleHandler
+=== RUN   TestDoubleHandler
+--- PASS: TestDoubleHandler (0.00s)
+=== RUN   TestDoubleHandlerWithTableOfTestCases
+=== RUN   TestDoubleHandlerWithTableOfTestCases/double_of_two
+=== RUN   TestDoubleHandlerWithTableOfTestCases/missing_value
+=== RUN   TestDoubleHandlerWithTableOfTestCases/not_a_number
+--- PASS: TestDoubleHandlerWithTableOfTestCases (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/double_of_two (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/missing_value (0.00s)
+    --- PASS: TestDoubleHandlerWithTableOfTestCases/not_a_number (0.00s)
+PASS
+ok  	github.com/zxhoper/go-testing-http-01-server-basic-test	0.004s
+^_^hbc@localhost:/home/hbc/BH/new-note/go-testing-justforfunc-#16-unit-testing-HTTP-servers-RZ20561-2022-09-07_083801/go-testing-http-01-server-basic-test/
+
+# Test only TestRouting
+# go test -v -run TestRouting
+[20220907T165350]$ go test -v -run TestRouting
+=== RUN   TestRouting
+    main_test.go:116: expected status OK; got 404 Not Found
+    main_test.go:126: expected an interger; got 404 page not found
+--- FAIL: TestRouting (0.00s)
+FAIL
+exit status 1
+FAIL	github.com/zxhoper/go-testing-http-01-server-basic-test	0.005s
+Q_Qhbc@localhost:/home/hbc/BH/new-note/go-testing-justforfunc-#16-unit-testing-HTTP-servers-RZ20561-2022-09-07_083801/go-testing-http-01-server-basic-test/
+[20220907T165357]$ 
+#+END_SRC
