@@ -57,7 +57,8 @@ func TestDoubleHandlerWithTableOfTestCases(t *testing.T) {
 		double int
 		err    string
 	}{
-		{name: "double of two", double: 4, value: "2"},
+		{name: "double of two", value: "2", double: 4},
+		{name: "missing value", value: "", err: "missing value"},
 	}
 
 	for _, tc := range tt {
@@ -71,18 +72,24 @@ func TestDoubleHandlerWithTableOfTestCases(t *testing.T) {
 		res := rec.Result()
 		defer res.Body.Close()
 
+		b, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			t.Fatalf("could not read response: %v", err)
+		}
+
 		if tc.err != "" {
 			// do something
+			if res.StatusCode != http.StatusBadRequest {
+				t.Errorf("expected status Bad Request; got %v", res.StatusCode)
+			}
+			if msg := string(bytes.TrimSpace(b)); msg != tc.err {
+				t.Errorf("expected message %q; got %q", tc.err, msg)
+			}
 			return
 		}
 
 		if res.StatusCode != http.StatusOK {
 			t.Errorf("expected status OK; got %v", res.Status)
-		}
-
-		b, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			t.Fatalf("could not read response: %v", err)
 		}
 
 		d, err := strconv.Atoi(string(bytes.TrimSpace(b)))
